@@ -1,27 +1,55 @@
 # -*- coding: utf-8 -*-
 
-from visual import *
+import visual
+from threading import Thread
+from time import sleep
 
 
-class Ball:
+class Ball(Thread):
     def __init__(self):
-        self._deltat = 0.005
-        self._t = 0
-        self._ball = sphere(pos=(0, 2, 0), radius=2, color=color.red)
-        self._floor = box(pos=(0, 0, 0), size=(10, 0.1, 10), color=color.blue)
+        Thread.__init__(self)
+        self._ball = visual.sphere(pos=(0, 0.5, 0), radius=0.5, color=visual.color.red)
+        self._floor = visual.box(pos=(0, 0, 0), size=(10, 0.1, 10), color=visual.color.blue)
+        self._action = ""
+        self._actionBuf = []
+
+    def run(self):
+        while True:
+            visual.rate(30)
+            print len(self._actionBuf)
+            if len(self._actionBuf) > 0:
+                self._action = self._actionBuf.pop(0)
+                if self._action == "U":
+                    step = visual.vector(0, 0, -1)
+                    self._ball.pos += step
+                    self._action = ""
+                elif self._action == "D":
+                    step = visual.vector(0, 0, 1)
+                    self._ball.pos += step
+                    self._action = ""
+                elif self._action == "L":
+                    step = visual.vector(-1, 0, 0)
+                    self._ball.pos += step
+                    self._action = ""
+                elif self._action == "R":
+                    step = visual.vector(1, 0, 0)
+                    self._ball.pos += step
+                    self._action = ""
+                elif self._action == "0":
+                    break
+            sleep(0.2)
 
     def moveUp(self):
-        self._ball.velocity = vector(0, 0, -1)
-        self._ball.pos += self._ball.velocity * self._deltat
+        self._actionBuf.append("U")
 
     def moveDown(self):
-        self._ball.velocity = vector(0, 0, 1)
-        self._ball.pos += self._ball.velocity * self._deltat
+        self._actionBuf.append("D")
 
     def moveLeft(self):
-        self._ball.velocity = vector(-1, 0, 0)
-        self._ball.pos += self._ball.velocity * self._deltat
+        self._actionBuf.append("L")
 
     def moveRight(self):
-        self._ball.velocity = vector(1, 0, 0)
-        self._ball.pos += self._ball.velocity * self._deltat
+        self._actionBuf.append("R")
+
+    def close(self):
+        self._actionBuf.append("0")

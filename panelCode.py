@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from PySide import QtCore, QtGui
-from visual import *
 from ball import Ball
 from panel import Ui_mainWindow
+from time import sleep
 
 
 class MyPanel(Ui_mainWindow):
     def __init__(self):
         self._ball = Ball()
+        sleep(0.5)
+        self._ball.start()
 
     def setupUi(self, mainWindow):
         super(MyPanel, self).setupUi(mainWindow)
+        self._myWindow = mainWindow
         self.connectGUI()
 
     def connectGUI(self):
@@ -22,16 +24,21 @@ class MyPanel(Ui_mainWindow):
 
     def goUp(self):
         print("Go up")
-        self._ball.moveUp();
+        self._ball.moveUp()
 
     def goDown(self):
         print("Go down")
-        self._ball.moveDown();
+        self._ball.moveDown()
 
     def goLeft(self):
         print("Go left")
-        self._ball.moveLeft();
+        self._ball.moveLeft()
 
     def goRight(self):
         print("Go right")
         self._ball.moveRight();
+
+    def closeEvent(self, event):
+        self._ball.close()
+        self._ball.join()
+        self._ball = None
