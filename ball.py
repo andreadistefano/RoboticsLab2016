@@ -16,7 +16,6 @@ class Ball(Thread):
     def run(self):
         while True:
             visual.rate(30)
-            print len(self._actionBuf)
             if len(self._actionBuf) > 0:
                 self._action = self._actionBuf.pop(0)
                 if self._action == "U":
