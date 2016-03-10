@@ -4,6 +4,7 @@ from PySide import QtGui
 import sys
 import panelCode
 
+
 def startApp():
     app = QtGui.QApplication(sys.argv)
     wndMainWindow = QtGui.QMainWindow()
@@ -12,5 +13,5 @@ def startApp():
     wndMainWindow.show()
     sys.exit(app.exec_())
 
-if (__name__ == "__main__"):
+if __name__ == "__main__":
     startApp()
