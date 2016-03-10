@@ -19,8 +19,12 @@ class BallSessionServer(SessionServer):
         st.listen(1)
         conn, origin = st.accept()
         while True:
-            data = conn.recv(1024).strip()
+            try:
+                data = conn.recv(1024).strip()
+            except socket.error:
+                data = None
             if not data:
+                print "Connection closed by client"
                 break
             print "RX:", data
             if data in ["Up", "Down", "Left", "Right"]:
