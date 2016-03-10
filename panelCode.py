@@ -38,18 +38,26 @@ class MyPanel(Ui_mainWindow):
     def goUp(self):
         self._mySocket.sendall("Up")
         print("Go up")
+        data = self._mySocket.recv(1024)
+        print data
 
     def goDown(self):
         self._mySocket.sendall("Down")
         print("Go down")
+        data = self._mySocket.recv(1024)
+        print data
 
     def goLeft(self):
         self._mySocket.sendall("Left")
         print("Go left")
+        data = self._mySocket.recv(1024)
+        print data
 
     def goRight(self):
         self._mySocket.sendall("Right")
         print("Go right")
+        data = self._mySocket.recv(1024)
+        print data
 
     def closeEvent(self, event):
         pass

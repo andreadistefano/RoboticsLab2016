@@ -11,7 +11,7 @@ class BallSessionServer(SessionServer):
         SessionServer.__init__(self, host, port)
         self._host = host
         self._port = port
-        self.cmdFun = commandCallback
+        self._cmdFun = commandCallback
 
     def run(self):
         st = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

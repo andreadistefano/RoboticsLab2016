@@ -35,6 +35,7 @@ class Ball(Thread):
                     self._ball.pos += step
                     self._action = ""
                 elif self._action == "0":
+                    exit()
                     break
             sleep(0.2)
 
@@ -53,5 +54,5 @@ class Ball(Thread):
     def close(self):
         self._actionBuf.append("0")
 
-    def command(self):
+    def command(self, msg):
         pass
