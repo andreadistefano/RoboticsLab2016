@@ -52,3 +52,6 @@ class Ball(Thread):
 
     def close(self):
         self._actionBuf.append("0")
+
+    def command(self):
+        pass
